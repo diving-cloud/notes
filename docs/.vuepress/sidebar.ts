@@ -19,7 +19,7 @@ export const sidebarConfig = sidebar({
   // 必须放在最后面
   "/": [
     {
-      text: "面试准备",
+      text: "启航",
       icon: "interview",
       collapsible: true,
       prefix: "interview-preparation/",
