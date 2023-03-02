@@ -491,7 +491,7 @@ export const sidebarConfig = sidebar({
         "high-availability-system-design",
         "redundancy",
         "limit-request",
-        "fallback&circuit-breaker",
+        "fallback-circuit-breaker",
         "timeout-and-retry",
         "performance-test",
       ],
