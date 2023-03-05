@@ -1,49 +1,46 @@
-name: CI
+name: 构建插件内容
 
-# 在main分支发生push事件时触发，已由master改为main。
-on: 
+on:
   push:
     branches:
       - master
 
 jobs:
-  build-and-deploy:
+  build-project:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
-        uses: actions/checkout@v2 # If you're using actions/checkout@v2 - must set persist-credentials to false in most cases for the deployment to work correctly.
+        uses: actions/checkout@v3
         with:
-          persist-credentials: false
+          fetch-depth: 0
+
       - uses: pnpm/action-setup@v2
-          with:
-            version: 7.17.1
-
-            - name: 设置 Node.js
-              uses: actions/setup-node@v3
-              with:
-                node-version: '16'
-                cache: 'pnpm'
-
-            - name: '安装依赖'
-              run: pnpm install --frozen-lockfile
-
-      - name: Install and Build
-        run: |
-          # yarn install
-          # yarn run build
-          # vuepress build docs
-          # vuepress dev docs --clean-cache
-          # "docs:build": "vuepress build docs",
-          # "docs:clean-dev": "vuepress dev docs --clean-cache",
-          # "docs:dev": "vuepress dev docs"
-          pnpm install
-          pnpm docs:dev
-
-
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
-          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          BRANCH: gh-pages # The branch the action should deploy to.
-          FOLDER: docs/.vuepress/dist # The folder the action should deploy.
-          BUILD_SCRIPT: npm install && npm run build && cd docs/.vuepress/dist && echo 'dbdgs.cn' > CNAME && cd -
+          version: 7.17.1
+
+      - name: 设置 Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'pnpm'
+
+      - name: '安装依赖'
+        run: pnpm install --frozen-lockfile
+
+      - name: '构建'
+        run: pnpm run build
+
+      - name: Zip the Build
+        run: zip -r ${{ steps.get_version.outputs.VERSION }}} ./dist/
+
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.ref }}
+          name: Release ${{ github.ref }}
+          files: |
+            ${{ steps.get_version.outputs.VERSION }}}.zip
+
+
