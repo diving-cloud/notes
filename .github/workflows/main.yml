@@ -19,9 +19,8 @@ jobs:
         run: |
           # yarn install
           # yarn run build
-          vuepress build docs
-          vuepress dev docs --clean-cache
-          vuepress dev docs
+          pnpm install
+          pnpm docs:dev
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
