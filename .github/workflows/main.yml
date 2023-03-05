@@ -10,13 +10,22 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: pnpm/action-setup@v2
-          with:
-            version: 6.0.2
       - name: Checkout
         uses: actions/checkout@v2 # If you're using actions/checkout@v2 - must set persist-credentials to false in most cases for the deployment to work correctly.
         with:
           persist-credentials: false
+      - uses: pnpm/action-setup@v2
+          with:
+            version: 7.17.1
+
+            - name: 设置 Node.js
+              uses: actions/setup-node@v3
+              with:
+                node-version: '16'
+                cache: 'pnpm'
+
+            - name: '安装依赖'
+              run: pnpm install --frozen-lockfile
 
       - name: Install and Build
         run: |
