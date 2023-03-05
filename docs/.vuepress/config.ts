@@ -3,7 +3,8 @@ import { themeConfig } from "./themeConfig";
 import { searchPlugin } from "@vuepress/plugin-search";
 
 export default defineUserConfig({
-  dest: ".vuepress/dist",
+  "base": "/notes",
+  dest: "/dist",
   theme: themeConfig,
   shouldPrefetch: false,
   title: "JavaGuide(Java面试+学习指南)",
