@@ -32,16 +32,7 @@ jobs:
         run: pnpm run build
 
       - name: Install and Build
-          run: |
-            # yarn install
-            # yarn run build
-            # vuepress build docs
-            # vuepress dev docs --clean-cache
-            # "docs:build": "vuepress build docs",
-            # "docs:clean-dev": "vuepress dev docs --clean-cache",
-            # "docs:dev": "vuepress dev docs"
-            pnpm install
-            pnpm docs:dev
+          run: pnpm install && pnpm docs:dev
 
 
       - name: Deploy
