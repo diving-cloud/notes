@@ -29,7 +29,9 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: '构建'
-        run: pnpm run build
+        run: |
+          pnpm install
+          pnpm docs:dev
 
       - name: Install and Build
           run: pnpm install && pnpm docs:dev
