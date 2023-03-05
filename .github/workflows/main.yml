@@ -33,9 +33,6 @@ jobs:
           pnpm install
           pnpm docs:dev
 
-      - name: Install and Build
-          run: pnpm install && pnpm docs:dev
-
 
       - name: Deploy
               uses: JamesIves/github-pages-deploy-action@releases/v3
